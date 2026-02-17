@@ -343,7 +343,7 @@ export default function Testimonials() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="testimonials" className="relative w-full py-24 bg-navy z-[70]">
+    <section ref={sectionRef} id="testimonials" className="relative w-full py-16 sm:py-24 bg-navy z-[70]">
       <div className="absolute inset-0 grid-overlay z-[1]" />
       <div className="absolute inset-0 vignette z-[2]" />
       <div className="absolute inset-0 noise-overlay z-[3]" />
@@ -352,41 +352,49 @@ export default function Testimonials() {
         {/* Heading */}
         <div
           ref={headingRef}
-          className="relative mb-12 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/20"
+          className="relative mb-8 sm:mb-12 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/25 sm:bg-slate-900/20"
         >
           <div className="testimonials-aurora" />
           <div className="absolute inset-0 grid-overlay opacity-20" />
-          <div className="relative z-[1] p-6 sm:p-10">
+          <div className="relative z-[1] p-5 sm:p-10">
             <span
               data-anim
-              className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+              className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
             >
               Testimonials
             </span>
             <h2
               data-anim
-              className="font-display font-bold text-display-2 text-slate-50 mb-4"
+              className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl"
             >
-              What clients say.
+              <span className="block text-[clamp(30px,8vw,54px)] sm:text-display-2 text-slate-50">
+                What clients say.
+              </span>
+              <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                Results that hold up
+              </span>
             </h2>
-            <p data-anim className="text-lg text-slate-200 leading-relaxed max-w-4xl">
+            <p
+              data-anim
+              className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-4xl"
+            >
               Selected feedback from government entities, private companies, and freelance deliveries.
               The common theme is consistency: clean data structure, solid QA/QC, and outputs that stakeholders
               can understand quickly.
             </p>
 
-            <div data-anim className="mt-7 flex flex-wrap gap-3">
+            <div data-anim className="mt-6 sm:mt-7 flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={() => navigate("/projects")}
-                className="inline-flex items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
               >
                 <Sparkles className="w-4 h-4" />
                 Browse Work
               </button>
               <a
                 href="mailto:saadbarghouth11@gmail.com"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
               >
                 <Mail className="w-4 h-4" />
                 Request references
@@ -397,25 +405,40 @@ export default function Testimonials() {
         </div>
 
         {/* Filter */}
-        <div className="mb-6 flex flex-wrap items-center gap-2">
-          {testimonialFilters.map((f) => {
-            const isActive = activeFilter === f;
-            return (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setActiveFilter(f)}
-                className={cn(
-                  "px-4 py-2 rounded-lg border font-mono text-xs tracking-[0.14em] uppercase transition-colors duration-300",
-                  isActive
-                    ? "bg-teal/12 border-teal/35 text-teal"
-                    : "bg-slate-900/25 border-slate-700/55 text-slate-300 hover:text-slate-50 hover:border-teal/25 hover:bg-slate-800/35"
-                )}
-              >
-                {f}
-              </button>
-            );
-          })}
+        <div className="mb-6 sm:mb-7 rounded-lg border border-slate-700/50 bg-slate-900/20 p-3 sm:p-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">
+              Category
+            </p>
+            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-slate-500 sm:hidden">
+              Active: <span className="text-teal">{activeFilter}</span>
+            </p>
+          </div>
+
+          <div className="mt-2.5 sm:mt-3 flex items-center gap-2 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-1 -mb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+            {testimonialFilters.map((f) => {
+              const isActive = activeFilter === f;
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setActiveFilter(f)}
+                  className={cn(
+                    "shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border font-mono text-[11px] sm:text-xs tracking-[0.14em] uppercase transition-colors duration-300",
+                    isActive
+                      ? "bg-teal/12 border-teal/35 text-teal"
+                      : "bg-slate-900/25 border-slate-700/55 text-slate-300 hover:text-slate-50 hover:border-teal/25 hover:bg-slate-800/35"
+                  )}
+                >
+                  {f}
+                </button>
+              );
+            })}
+          </div>
+
+          <p className="sm:hidden mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-slate-500">
+            Swipe left/right for all categories.
+          </p>
         </div>
 
         {/* Carousel */}
@@ -423,17 +446,17 @@ export default function Testimonials() {
           ref={carouselWrapRef}
           className="rounded-lg border border-slate-700/45 bg-slate-900/20 overflow-hidden"
         >
-          <div className="flex items-center justify-between gap-3 p-4 sm:p-5 border-b border-slate-800/60">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3.5 sm:p-5 border-b border-slate-800/60">
             <div className="min-w-0">
               <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                 Client feedback
               </p>
-              <p className="text-sm text-slate-400 mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 mt-1 leading-relaxed">
                 Swipe on mobile or use arrows on desktop.
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex w-full sm:w-auto items-center justify-end gap-2">
               <button
                 type="button"
                 onClick={scrollPrev}
@@ -454,17 +477,17 @@ export default function Testimonials() {
           </div>
 
           <div ref={emblaRef} className="overflow-hidden">
-            <div className="flex -ml-4 sm:-ml-5 p-4 sm:p-5">
+            <div className="flex -ml-3 sm:-ml-5 p-3 sm:p-5">
               {visibleTestimonials.map((t, index) => {
                 const st = styleFor(t.category);
                 return (
                   <div
                     key={`${t.author}-${t.role}-${index}`}
-                    className="pl-4 sm:pl-5 flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
+                    className="pl-3 sm:pl-5 flex-[0_0_92%] sm:flex-[0_0_78%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%]"
                   >
                     <article
                       className={cn(
-                        "h-full relative overflow-hidden rounded-lg border border-slate-700/35 bg-slate-900/15 p-7 sm:p-8 shadow-xl transition-colors",
+                        "h-full relative overflow-hidden rounded-lg border border-slate-700/35 bg-slate-900/15 p-4 sm:p-8 shadow-xl transition-colors",
                         st.ring
                       )}
                     >
@@ -475,47 +498,47 @@ export default function Testimonials() {
                         <div className="flex items-start justify-between gap-3">
                           <span
                             className={cn(
-                              "inline-flex items-center px-2 py-1 rounded-lg border font-mono text-[11px] tracking-[0.14em] uppercase",
+                              "inline-flex items-center px-2 py-1 rounded-lg border font-mono text-[10px] sm:text-[11px] tracking-[0.14em] uppercase",
                               st.badge
                             )}
                           >
                             {t.category}
                           </span>
-                          <Quote className="w-7 h-7 text-teal/35" />
+                          <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-teal/35" />
                         </div>
 
-                        <div className="mt-4 flex gap-1">
+                        <div className="mt-3 sm:mt-4 flex gap-1">
                           {Array.from({ length: t.rating }).map((_, i) => (
                             <Star key={i} className="w-4 h-4 text-teal fill-teal" />
                           ))}
                         </div>
 
-                        <p className="mt-5 text-sm text-slate-200 leading-relaxed">
+                        <p className="mt-4 sm:mt-5 text-xs sm:text-sm text-slate-200 leading-relaxed">
                           "{t.quote}"
                         </p>
 
                         {t.highlight ? (
-                          <div className="mt-5 rounded-lg border border-teal/20 bg-teal/10 p-4">
-                            <p className="font-mono text-[11px] text-teal uppercase tracking-[0.14em]">
+                          <div className="mt-4 sm:mt-5 rounded-lg border border-teal/20 bg-teal/10 p-3 sm:p-4">
+                            <p className="font-mono text-[10px] sm:text-[11px] text-teal uppercase tracking-[0.14em]">
                               Highlight
                             </p>
-                            <p className="mt-2 text-sm text-slate-100 leading-relaxed">
+                            <p className="mt-2 text-xs sm:text-sm text-slate-100 leading-relaxed">
                               {t.highlight}
                             </p>
                           </div>
                         ) : null}
 
-                        <div className="mt-6 flex items-center gap-3">
-                          <div className="w-10 h-10 bg-slate-900/35 border border-slate-700/55 rounded-full flex items-center justify-center">
+                        <div className="mt-5 sm:mt-6 flex items-center gap-3">
+                          <div className="w-9 h-9 sm:w-10 sm:h-10 bg-slate-900/35 border border-slate-700/55 rounded-full flex items-center justify-center">
                             <span className="font-display font-semibold text-teal">
                               {t.author.charAt(0)}
                             </span>
                           </div>
                           <div className="min-w-0">
-                            <p className="font-mono text-sm text-slate-200 truncate">
+                            <p className="font-mono text-xs sm:text-sm text-slate-200 truncate">
                               {t.author}
                             </p>
-                            <p className="text-xs text-slate-500 truncate">
+                            <p className="text-[11px] sm:text-xs text-slate-500 truncate">
                               {t.role}
                             </p>
                           </div>
@@ -528,7 +551,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div className="px-4 sm:px-5 pb-5">
+          <div className="px-3 sm:px-5 pb-4 sm:pb-5">
             <div className="h-1.5 rounded-lg bg-slate-900/35 border border-slate-800/60 overflow-hidden">
               <div
                 className="h-full w-full origin-left bg-gradient-to-r from-teal via-teal-light to-slate-50/60"
