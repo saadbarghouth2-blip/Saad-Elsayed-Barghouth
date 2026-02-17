@@ -377,6 +377,48 @@ p, h1, h2, h3, h4, h5, h6 {
   z-index: 100;
 }
 
+/* Mobile baseline tuning across all pages */
+@media (max-width: 640px) {
+  .py-24 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .py-20 {
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .py-16 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .text-display-1 {
+    font-size: clamp(32px, 8.5vw, 46px);
+  }
+
+  .text-display-2 {
+    font-size: clamp(26px, 7.2vw, 36px);
+    line-height: 1.06;
+  }
+
+  .text-display-3 {
+    font-size: clamp(22px, 6.2vw, 30px);
+    line-height: 1.1;
+  }
+
+  section {
+    scroll-margin-top: 5rem;
+  }
+
+  #mobile-nav .mobile-nav-scroll {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 /* Small-screen (phones) fine-tuning: reduce vertical rhythm, cap large headings,
    improve touch targets and card padding for better usability on narrow screens */
 @media (max-width: 420px) {
@@ -468,9 +510,9 @@ p, h1, h2, h3, h4, h5, h6 {
 
   /* Mobile-nav: make inner content scrollable and show visual scroll hints */
   #mobile-nav .mobile-nav-scroll {
-    /* allow the mobile nav to expand to the viewport height (nav bar reserved) */
-    max-height: calc(100vh - 64px);
+    max-height: inherit;
     overflow-y: auto;
+    overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding-right: 0.5rem; /* prevent last item being under the fade */
     padding-bottom: 0.5rem; /* ensure last item doesn't butt under the fade */
