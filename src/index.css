@@ -98,7 +98,7 @@
 
   /* Standardized page gutter for consistent mobile/desktop spacing */
   .site-gutter {
-    @apply px-6 sm:px-[8vw] lg:px-[10vw];
+    @apply px-4 sm:px-[8vw] lg:px-[10vw];
   }
 
   /* Small touch-target helper (used on primary CTAs for better mobile UX) */
