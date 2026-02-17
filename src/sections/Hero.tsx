@@ -113,7 +113,7 @@ export default function Hero() {
         className="absolute inset-0 z-[6] flex flex-col justify-end pb-4 sm:pb-8 site-gutter"
       >
         <div className="w-full max-w-6xl">
-          <div className="hero-panel text-shadow p-4 sm:p-8 rounded-xl border border-slate-700/45 bg-navy/55 backdrop-blur-[2px] sm:rounded-none sm:border-transparent sm:bg-transparent sm:backdrop-blur-0">
+          <div className="hero-panel text-shadow p-0 sm:p-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-end">
               <div className="lg:col-span-7">
                 <div className="hero-item mb-4 sm:mb-5">
