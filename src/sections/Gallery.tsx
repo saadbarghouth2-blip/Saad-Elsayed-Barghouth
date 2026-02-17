@@ -578,7 +578,7 @@ export default function Gallery() {
   }, [isOpen, activeImage?.kind]);
 
   return (
-    <section ref={sectionRef} id="gallery" className="relative bg-navy z-[45] py-24">
+    <section ref={sectionRef} id="gallery" className="relative bg-navy z-[45] py-16 sm:py-24">
       {/* Grid Overlay */}
       <div className="absolute inset-0 grid-overlay z-[1]" />
 
@@ -592,43 +592,54 @@ export default function Gallery() {
         {/* Heading */}
         <div
           ref={headingRef}
-          className="relative mb-14 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/20"
+          className="relative mb-10 sm:mb-14 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/25 sm:bg-slate-900/20"
         >
           <div className="gallery-aurora" />
           <div className="absolute inset-0 grid-overlay opacity-20" />
-          <div className="relative z-[1] p-6 sm:p-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="relative z-[1] p-5 sm:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-start">
               <div className="lg:col-span-7">
                 <span
                   data-anim
-                  className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+                  className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
                 >
                   Gallery
                 </span>
 
                 <h2
                   data-anim
-                  className="font-display font-bold text-display-2 text-slate-50 mb-4"
+                  className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl"
                 >
-                  Behind the layers. Built for clarity.
+                  <span className="block text-[clamp(30px,8.2vw,54px)] sm:text-display-2 text-slate-50">
+                    Behind the layers.
+                  </span>
+                  <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                    Built for clarity.
+                  </span>
                 </h2>
 
-                <p data-anim className="text-lg text-slate-200 leading-relaxed max-w-3xl">
+                <p
+                  data-anim
+                  className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-3xl"
+                >
                   A curated, image-first walkthrough of how I deliver work in practice: field
                   validation, enterprise geodatabase design, responsive web interfaces, and stakeholder-ready web outputs. Each entry highlights what you are looking at,
                   the decision it supports, and the standards used to keep results consistent.
                 </p>
 
-                <p data-anim className="text-sm text-slate-400 leading-relaxed mt-4 max-w-3xl">
+                <p
+                  data-anim
+                  className="text-xs sm:text-sm text-slate-400 leading-relaxed mt-4 max-w-3xl"
+                >
                   If you would like deeper context on any item, I can summarize it in a simple
                   format: objective, data sources, tools, QA/QC checks, and the final outcome.
                 </p>
 
-                <div data-anim className="mt-7 flex flex-wrap gap-3">
+                <div data-anim className="mt-6 sm:mt-7 flex flex-wrap gap-3">
                   <button
                     type="button"
                     onClick={() => openAt(0)}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     <Play className="w-4 h-4" />
                     Start Guided View
@@ -636,7 +647,7 @@ export default function Gallery() {
                   <button
                     type="button"
                     onClick={() => navigate("/projects")}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Explore Projects
                     <ArrowUpRight className="w-4 h-4" />
@@ -644,30 +655,29 @@ export default function Gallery() {
                   <button
                     type="button"
                     onClick={() => navigate("/contact")}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     <Mail className="w-4 h-4" />
                     Contact
                   </button>
                 </div>
 
-                <div data-anim className="mt-7 flex items-start gap-3 text-sm text-slate-400">
+                <div data-anim className="mt-5 sm:mt-7 flex items-start gap-3 text-xs sm:text-sm text-slate-400">
                   <Keyboard className="w-4 h-4 text-teal mt-0.5" />
                   <p className="leading-relaxed">
-                    Tip: open any image full-screen, then use your arrow keys to move through the
-                    gallery.
+                    Tip: open any item in full-screen. Desktop: arrow keys. Mobile: swipe left/right.
                   </p>
                 </div>
               </div>
 
-              <div className="lg:col-span-5 space-y-4">
-                <div data-anim className="bg-slate-900/35 border border-slate-700/50 rounded-lg p-5">
-                  <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-4">
+              <div className="lg:col-span-5 space-y-3 sm:space-y-4">
+                <div data-anim className="bg-slate-900/35 border border-slate-700/50 rounded-lg p-4 sm:p-5">
+                  <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-3 sm:mb-4">
                     What You Will Find
                   </p>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <div className="flex items-start gap-3">
-                      <Workflow className="w-5 h-5 text-teal mt-0.5" />
+                      <Workflow className="w-4 h-4 sm:w-5 sm:h-5 text-teal mt-0.5" />
                       <div>
                         <p className="text-sm text-slate-200 font-medium">Field to Office Workflow</p>
                         <p className="text-sm text-slate-400 leading-relaxed">
@@ -676,7 +686,7 @@ export default function Gallery() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-teal mt-0.5" />
+                      <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-teal mt-0.5" />
                       <div>
                         <p className="text-sm text-slate-200 font-medium">Quality and Traceability</p>
                         <p className="text-sm text-slate-400 leading-relaxed">
@@ -685,7 +695,7 @@ export default function Gallery() {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <Sparkles className="w-5 h-5 text-teal mt-0.5" />
+                      <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-teal mt-0.5" />
                       <div>
                         <p className="text-sm text-slate-200 font-medium">Stakeholder Presentation</p>
                         <p className="text-sm text-slate-400 leading-relaxed">
@@ -701,7 +711,7 @@ export default function Gallery() {
         </div>
 
         {/* Story List (not grouped in a grid) */}
-        <div ref={listRef} className="space-y-12">
+        <div ref={listRef} className="space-y-8 sm:space-y-12">
           {PUBLIC_IMAGES.map((img, idx) => {
             const meta = STORY_BY_INDEX[idx];
             const st = styleFor(img.group);
@@ -718,7 +728,7 @@ export default function Gallery() {
                 key={`${img.filename}-${idx}`}
                 data-dir={isReversed ? "right" : "left"}
                 className={cn(
-                  "story-item group relative overflow-hidden bg-slate-800/15 hover:bg-slate-800/20 border border-slate-700/30 rounded-lg p-5 sm:p-6 transition-colors duration-300",
+                  "story-item group relative overflow-hidden bg-slate-800/15 hover:bg-slate-800/20 border border-slate-700/30 rounded-lg p-4 sm:p-6 transition-colors duration-300",
                   st.hoverBorder
                 )}
               >
@@ -729,7 +739,7 @@ export default function Gallery() {
                     st.rail
                   )}
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
                   <figure
                     className={cn(
                       "story-media lg:col-span-8",
@@ -786,7 +796,7 @@ export default function Gallery() {
                         </>
                       )}
                       {/* Overlay caption on the image (transparent + animated) */}
-                      <div className="absolute left-0 bottom-0 w-full px-4 py-3 bg-gradient-to-t from-black/65 via-black/30 to-transparent backdrop-blur-sm opacity-0 translate-y-3 group-hover/media:opacity-100 group-hover/media:translate-y-0 focus-visible:opacity-100 transition-all duration-300 ease-out">
+                      <div className="absolute left-0 bottom-0 w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-t from-black/75 via-black/45 sm:via-black/30 to-transparent backdrop-blur-sm opacity-100 translate-y-0 sm:opacity-0 sm:translate-y-3 sm:group-hover/media:opacity-100 sm:group-hover/media:translate-y-0 focus-visible:opacity-100 transition-all duration-300 ease-out">
                         <p className="text-sm font-semibold text-slate-50 leading-snug truncate">{img.title}</p>
                         <p className="mt-1 text-xs text-slate-300 line-clamp-2">{meta.lead}</p>
                         <div className="mt-2 flex flex-wrap gap-2">
@@ -840,7 +850,7 @@ export default function Gallery() {
                           aria-hidden="true"
                           className="absolute inset-0 flex items-center justify-center pointer-events-none"
                         >
-                          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-navy/65 border border-slate-700/60 text-slate-50 font-mono text-xs opacity-0 group-hover/media:opacity-100 transition-opacity duration-500">
+                          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-navy/65 border border-slate-700/60 text-slate-50 font-mono text-xs opacity-100 sm:opacity-0 sm:group-hover/media:opacity-100 transition-opacity duration-500">
                             <Play className="w-4 h-4 text-teal" />
                             Play video
                           </div>
@@ -884,7 +894,7 @@ export default function Gallery() {
                       isReversed ? "lg:order-1" : "lg:order-2"
                     )}
                   >
-                    <div className="flex items-center justify-between gap-3 mb-3">
+                    <div className="flex flex-wrap items-center justify-between gap-2.5 mb-3">
                       <div className="flex items-center gap-2 min-w-0">
                         <span
                           className={cn(
@@ -901,11 +911,11 @@ export default function Gallery() {
                       </p>
                     </div>
 
-                    <h3 className="font-display font-semibold text-xl text-slate-50 mb-3">
+                    <h3 className="font-display font-semibold text-lg sm:text-xl text-slate-50 mb-3">
                       {img.title}
                     </h3>
 
-                    <p className="text-slate-300 leading-relaxed">
+                    <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
                       {meta.lead}
                     </p>
 
@@ -1012,7 +1022,7 @@ export default function Gallery() {
                       <button
                         type="button"
                         onClick={() => openAt(idx)}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                       >
                         {isVideo ? <Play className="w-4 h-4" /> : <Images className="w-4 h-4" />}
                         {isVideo ? "Play Video" : "View Image"}
@@ -1022,7 +1032,7 @@ export default function Gallery() {
                         <button
                           type="button"
                           onClick={() => navigate("/projects")}
-                          className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                         >
                           Related Projects
                           <ArrowUpRight className="w-4 h-4" />
@@ -1040,7 +1050,7 @@ export default function Gallery() {
       {/* Lightbox */}
       <Dialog open={isOpen} onOpenChange={(open) => (open ? setIsOpen(true) : close())}>
         <DialogContent
-          className="p-0 sm:max-w-6xl bg-navy border border-slate-700/50 overflow-hidden"
+          className="w-[calc(100vw-0.75rem)] max-w-[calc(100vw-0.75rem)] sm:max-w-6xl max-h-[94vh] p-0 bg-navy border border-slate-700/50 overflow-hidden"
           showCloseButton={false}
         >
           <DialogTitle className="sr-only">
@@ -1050,11 +1060,11 @@ export default function Gallery() {
             {activeImage ? `${activeImage.group} · ${safeIndex + 1} / ${PUBLIC_IMAGES.length}` : ""}
           </DialogDescription>
           {activeImage && activeMeta && activeStyle ? (
-            <div className="relative">
+            <div className="relative max-h-[94vh] overflow-hidden">
               {/* Top Bar */}
-              <div className="flex items-center justify-between gap-3 px-4 py-3 border-b border-slate-800/60 bg-navy/90">
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between px-3.5 sm:px-4 py-3 border-b border-slate-800/60 bg-navy/90">
                 <div className="min-w-0">
-                  <p className="font-display font-semibold text-slate-50 truncate">
+                  <p className="font-display font-semibold text-base sm:text-lg text-slate-50 truncate">
                     {activeImage.title}
                   </p>
                   <div className="mt-1 flex flex-wrap items-center gap-2">
@@ -1072,11 +1082,11 @@ export default function Gallery() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex w-full sm:w-auto items-center justify-end gap-2">
                   <button
                     type="button"
                     onClick={prev}
-                    className="w-9 h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
+                    className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
                     aria-label="Previous image"
                   >
                     <ChevronLeft className="w-5 h-5" />
@@ -1084,7 +1094,7 @@ export default function Gallery() {
                   <button
                     type="button"
                     onClick={next}
-                    className="w-9 h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
+                    className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
                     aria-label="Next image"
                   >
                     <ChevronRight className="w-5 h-5" />
@@ -1092,7 +1102,7 @@ export default function Gallery() {
                   <button
                     type="button"
                     onClick={close}
-                    className="w-9 h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
+                    className="w-10 h-10 sm:w-9 sm:h-9 rounded-lg border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors flex items-center justify-center"
                     aria-label="Close"
                   >
                     <X className="w-5 h-5" />
@@ -1107,7 +1117,7 @@ export default function Gallery() {
                   onTouchStart={activeImage.kind === "video" ? undefined : onLightboxTouchStart}
                   onTouchEnd={activeImage.kind === "video" ? undefined : onLightboxTouchEnd}
                 >
-                  <div className="relative w-full flex items-center justify-center p-3 sm:p-5">
+                  <div className="relative w-full flex items-center justify-center p-2.5 sm:p-5">
                     <div
                       aria-hidden="true"
                       className={cn(
@@ -1121,7 +1131,7 @@ export default function Gallery() {
                         playsInline
                         preload="metadata"
                         poster={activeImage.poster ? publicPath(activeImage.poster) : undefined}
-                        className="relative w-full max-h-[78vh] object-contain drop-shadow-[0_26px_55px_rgba(0,0,0,0.55)]"
+                        className="relative w-full max-h-[52vh] sm:max-h-[74vh] lg:max-h-[78vh] object-contain drop-shadow-[0_26px_55px_rgba(0,0,0,0.55)]"
                       >
                         <source src={publicPath(activeImage.filename)} />
                         Your browser does not support the video tag.
@@ -1130,7 +1140,7 @@ export default function Gallery() {
                       <img
                         src={publicPath(activeImage.filename)}
                         alt={activeImage.title}
-                        className="relative w-full max-h-[78vh] object-contain drop-shadow-[0_26px_55px_rgba(0,0,0,0.55)]"
+                        className="relative w-full max-h-[52vh] sm:max-h-[74vh] lg:max-h-[78vh] object-contain drop-shadow-[0_26px_55px_rgba(0,0,0,0.55)]"
                       />
                     )}
                   </div>
@@ -1138,7 +1148,7 @@ export default function Gallery() {
 
                 {/* Info */}
                 <aside className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-slate-800/60 bg-navy/90">
-                  <div className="p-4 sm:p-5 max-h-[46vh] lg:max-h-[78vh] overflow-y-auto">
+                  <div className="p-4 sm:p-5 max-h-[42vh] sm:max-h-[46vh] lg:max-h-[78vh] overflow-y-auto">
                     <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                       Overview
                     </p>
@@ -1185,7 +1195,7 @@ export default function Gallery() {
                         href={publicPath(activeImage.filename)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                       >
                         Open original
                         <ArrowUpRight className="w-4 h-4" />
@@ -1198,7 +1208,7 @@ export default function Gallery() {
                             close();
                             setTimeout(() => navigate("/projects"), 0);
                           }}
-                          className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                          className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                         >
                           Related Projects
                           <ArrowUpRight className="w-4 h-4" />
@@ -1211,7 +1221,7 @@ export default function Gallery() {
                           close();
                           setTimeout(() => navigate("/contact"), 0);
                         }}
-                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                        className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-4 py-2.5 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                       >
                         <Mail className="w-4 h-4" />
                         Contact
