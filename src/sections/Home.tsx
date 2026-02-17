@@ -122,7 +122,7 @@ function HomeOverview() {
     <section
       ref={sectionRef}
       id="home-overview"
-      className="relative bg-navy z-[35] pt-0 pb-20 sm:pb-24 scroll-mt-24"
+      className="relative bg-navy z-[35] pt-0 pb-16 sm:pb-24 scroll-mt-24"
     >
       <div className="absolute inset-0 grid-overlay z-[1]" />
       <div className="absolute inset-0 vignette z-[2]" />
@@ -131,37 +131,37 @@ function HomeOverview() {
       <div className="relative z-[4] site-gutter">
         <div
           ref={headingRef}
-          className="relative mb-12 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/20"
+          className="relative mb-8 sm:mb-12 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/25 sm:bg-slate-900/20"
         >
           <div className="absolute inset-0 grid-overlay opacity-20" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_22%_30%,rgba(46,196,182,0.16),transparent_55%)]" />
-          <div className="relative z-[1] p-6 sm:p-10">
+          <div className="relative z-[1] p-5 sm:p-10">
             <span
               data-anim
-              className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+              className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
             >
               Overview
             </span>
             <h2
               data-anim
-              className="font-display font-bold text-display-2 text-slate-50 mb-4"
+              className="font-display font-bold text-display-2 text-slate-50 mb-3 sm:mb-4 max-w-3xl"
             >
               GIS delivery that stays clean, consistent, and usable.
             </h2>
             <p
               data-anim
-              className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-4xl"
+              className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-4xl"
             >
               I help teams turn spatial data into decision-ready products: structured geodatabases,
               QA/QC you can trust, and web maps and dashboards that stakeholders can actually use.
               The goal is simple: reduce rework, keep outputs consistent, and make handover easy.
             </p>
 
-            <div data-anim className="mt-7 flex flex-wrap gap-3">
+            <div data-anim className="mt-6 sm:mt-7 flex flex-wrap gap-3">
               <button
                 type="button"
                 onClick={() => navigate("/projects")}
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
               >
                 <Sparkles className="w-4 h-4" />
                 Explore Work
@@ -169,7 +169,7 @@ function HomeOverview() {
               <button
                 type="button"
                 onClick={() => navigate("/gallery")}
-                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
               >
                 <GalleryHorizontal className="w-4 h-4" />
                 See Visuals
@@ -179,18 +179,18 @@ function HomeOverview() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-          <div ref={cardsRef} className="lg:col-span-7 space-y-5">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-start">
+          <div ref={cardsRef} className="lg:col-span-7 space-y-4 sm:space-y-5">
             <div
               data-card
-              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-6"
+              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 sm:p-6"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
-                  <Database className="w-6 h-6 text-teal" />
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
+                  <Database className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-display font-semibold text-lg text-slate-50">
+                  <p className="font-display font-semibold text-base sm:text-lg text-slate-50">
                     Data modeling that scales
                   </p>
                   <p className="mt-2 text-sm text-slate-400 leading-relaxed">
@@ -203,14 +203,14 @@ function HomeOverview() {
 
             <div
               data-card
-              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-6"
+              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 sm:p-6"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
-                  <BadgeCheck className="w-6 h-6 text-teal" />
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
+                  <BadgeCheck className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-display font-semibold text-lg text-slate-50">
+                  <p className="font-display font-semibold text-base sm:text-lg text-slate-50">
                     QA/QC that reduces rework
                   </p>
                   <p className="mt-2 text-sm text-slate-400 leading-relaxed">
@@ -223,14 +223,14 @@ function HomeOverview() {
 
             <div
               data-card
-              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-6"
+              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 sm:p-6"
             >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
-                  <MapPinned className="w-6 h-6 text-teal" />
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
+                  <MapPinned className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-display font-semibold text-lg text-slate-50">
+                  <p className="font-display font-semibold text-base sm:text-lg text-slate-50">
                     Maps built for stakeholders
                   </p>
                   <p className="mt-2 text-sm text-slate-400 leading-relaxed">
@@ -243,7 +243,7 @@ function HomeOverview() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-6">
+            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-5 sm:p-6">
               <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                 In Practice
               </p>
@@ -264,7 +264,7 @@ function HomeOverview() {
                 {["ArcGIS Pro", "ArcGIS Online", "Topology", "Dashboards", "StoryMaps"].map((t) => (
                   <span
                     key={t}
-                    className="px-3 py-1.5 bg-slate-800/35 border border-slate-700/40 text-slate-200 text-xs font-mono rounded-lg"
+                    className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-slate-800/35 border border-slate-700/40 text-slate-200 text-xs font-mono rounded-lg"
                   >
                     {t}
                   </span>
@@ -356,16 +356,16 @@ function HomeFocus() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="home-focus" className="relative bg-navy z-[35] py-20 sm:py-24">
+    <section ref={sectionRef} id="home-focus" className="relative bg-navy z-[35] py-16 sm:py-24">
       <div className="absolute inset-0 grid-overlay z-[1]" />
       <div className="absolute inset-0 vignette z-[2]" />
       <div className="absolute inset-0 noise-overlay z-[3]" />
 
       <div className="relative z-[4] site-gutter">
-        <div ref={headingRef} className="mb-12">
+        <div ref={headingRef} className="mb-8 sm:mb-12">
           <span
             data-anim
-            className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+            className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
           >
             Focus
           </span>
@@ -375,19 +375,19 @@ function HomeFocus() {
           >
             Three pillars that shape every delivery.
           </h2>
-          <p data-anim className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-4xl">
+          <p data-anim className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-4xl">
             Clean data structure, responsive interfaces, and automation that keeps delivery fast and
             consistent. Pick a pillar to see what it looks like in practice.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-start">
           <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-5">
-              <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-4">
+            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 sm:p-5">
+              <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-3 sm:mb-4">
                 Choose a pillar
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-2 sm:gap-3">
                 {focusItems.map((item) => {
                   const Icon = item.icon;
                   const isActive = item.key === active;
@@ -398,12 +398,9 @@ function HomeFocus() {
                       aria-pressed={isActive}
                       onClick={() => {
                         setActive(item.key);
-                        if (typeof window !== 'undefined' && window.matchMedia('(max-width: 420px)').matches) {
-                          window.dispatchEvent(new CustomEvent('open-mobile-nav', { detail: { to: item.cta.to } }));
-                        }
                       }}
                       className={cn(
-                        "relative group w-full flex items-start gap-4 px-4 py-4 rounded-md border transition-transform duration-200 shadow-sm",
+                        "relative group w-full flex items-start gap-3 sm:gap-4 px-3.5 sm:px-4 py-3.5 sm:py-4 rounded-md border transition-transform duration-200 shadow-sm text-left",
                         isActive
                           ? "bg-teal/10 border-teal/30 text-teal shadow-[0_8px_30px_rgba(46,196,182,0.06)]"
                           : "bg-slate-900/20 border-slate-700/50 text-slate-200 hover:-translate-y-0.5 hover:shadow-glow"
@@ -411,15 +408,15 @@ function HomeFocus() {
                     >
                       <span
                         className={cn(
-                          "flex-shrink-0 w-11 h-11 rounded-md border flex items-center justify-center transition-colors duration-200",
+                          "flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 rounded-md border flex items-center justify-center transition-colors duration-200",
                           isActive ? "bg-teal/10 border-teal/30 text-teal" : "bg-slate-900/30 border-slate-700/50 text-slate-300"
                         )}
                       >
-                        <Icon className="w-6 h-6" />
+                        <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                       </span>
 
                       <span className="min-w-0">
-                        <span className="block font-display font-semibold text-sm leading-tight">{item.label}</span>
+                        <span className="block font-display font-semibold text-sm sm:text-[15px] leading-tight">{item.label}</span>
                         <span className="block text-xs text-slate-400 mt-1 line-clamp-2">{item.title}</span>
                       </span>
 
@@ -427,7 +424,7 @@ function HomeFocus() {
 
                       {/* subtle accent stripe when active */}
                       {isActive ? (
-                        <span aria-hidden className="absolute -left-1 top-1/2 -translate-y-1/2 h-10 w-1 rounded-full bg-teal/60" />
+                        <span aria-hidden className="absolute -left-1 top-1/2 -translate-y-1/2 h-8 sm:h-10 w-1 rounded-full bg-teal/60" />
                       ) : null}
                     </button>
                   );
@@ -435,8 +432,8 @@ function HomeFocus() {
               </div>
             </div>
 
-            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-5">
-              <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-4">
+            <div className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 sm:p-5">
+              <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-3 sm:mb-4">
                 A real moment
               </p>
               <FramedImage
@@ -453,33 +450,33 @@ function HomeFocus() {
           <div className="lg:col-span-7">
             <div
               key={activeItem.key}
-              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-6 sm:p-8 animate-fade-in"
+              className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-5 sm:p-8 animate-fade-in"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="min-w-0">
                   <p className="font-mono text-xs text-teal tracking-[0.12em] uppercase">
                     Selected pillar
                   </p>
-                  <h3 className="mt-2 font-display font-semibold text-xl sm:text-2xl text-slate-50">
+                  <h3 className="mt-2 font-display font-semibold text-lg sm:text-2xl text-slate-50">
                     {activeItem.title}
                   </h3>
                 </div>
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
-                  <ActiveIcon className="w-6 h-6 text-teal" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
+                  <ActiveIcon className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
               </div>
 
-              <p className="mt-4 text-slate-300 leading-relaxed">
+              <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-300 leading-relaxed">
                 {activeItem.body}
               </p>
 
-              <div className="mt-6">
+              <div className="mt-5 sm:mt-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-3">
                   What you get
                 </p>
                 <ul className="space-y-2">
                   {activeItem.points.map((p) => (
-                    <li key={p} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={p} className="text-[13px] sm:text-sm text-slate-300 flex items-start gap-2">
                       <span className="w-1.5 h-1.5 bg-teal/70 rounded-full mt-2 flex-shrink-0" />
                       {p}
                     </li>
@@ -487,22 +484,22 @@ function HomeFocus() {
                 </ul>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
+              <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
                 {activeItem.tags.map((t) => (
                   <span
                     key={t}
-                    className="px-3 py-1.5 bg-slate-800/35 border border-slate-700/40 text-slate-200 text-xs font-mono rounded-lg"
+                    className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-slate-800/35 border border-slate-700/40 text-slate-200 text-xs font-mono rounded-lg"
                   >
                     {t}
                   </span>
                 ))}
               </div>
 
-              <div className="mt-7 flex flex-wrap gap-3">
+              <div className="mt-6 sm:mt-7 flex flex-wrap gap-3">
                 <button
                   type="button"
                   onClick={() => navigate(activeItem.cta.to)}
-                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                 >
                   {activeItem.cta.label}
                   <ArrowUpRight className="w-4 h-4" />
@@ -510,7 +507,7 @@ function HomeFocus() {
                 <button
                   type="button"
                   onClick={() => navigate("/contact")}
-                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                  className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                 >
                   Discuss a project
                   <ArrowUpRight className="w-4 h-4" />
@@ -580,16 +577,16 @@ function HomeNext() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="home-next" className="relative bg-navy z-[35] py-20 sm:py-24">
+    <section ref={sectionRef} id="home-next" className="relative bg-navy z-[35] py-16 sm:py-24">
       <div className="absolute inset-0 grid-overlay z-[1]" />
       <div className="absolute inset-0 vignette z-[2]" />
       <div className="absolute inset-0 noise-overlay z-[3]" />
 
       <div className="relative z-[4] site-gutter">
-        <div ref={headingRef} className="mb-12">
+        <div ref={headingRef} className="mb-8 sm:mb-12">
           <span
             data-anim
-            className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+            className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
           >
             Next
           </span>
@@ -599,29 +596,29 @@ function HomeNext() {
           >
             Want to see the details?
           </h2>
-          <p data-anim className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-4xl">
+          <p data-anim className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-4xl">
             Browse project write-ups, open visual walkthroughs, or jump straight to contact. I keep
             the story simple: objective, method, QA/QC checks, and the outcome.
           </p>
         </div>
 
-        <div ref={cardsRef} className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch">
-          <div className="xl:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <div ref={cardsRef} className="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+          <div className="xl:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-stretch">
             <div
               data-card
               className="md:col-span-2 rounded-lg border border-slate-700/45 bg-slate-900/20 overflow-hidden"
             >
-              <div className="p-6 sm:p-7">
+              <div className="p-5 sm:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                       Portfolio
                     </p>
-                    <p className="mt-2 font-display font-semibold text-xl text-slate-50">
+                    <p className="mt-2 font-display font-semibold text-lg sm:text-xl text-slate-50">
                       Work and Deliverables
                     </p>
                   </div>
-                  <div className="w-11 h-11 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
                     <Blocks className="w-5 h-5 text-teal" />
                   </div>
                 </div>
@@ -634,7 +631,7 @@ function HomeNext() {
                   <button
                     type="button"
                     onClick={() => navigate("/projects")}
-                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Go to Work
                     <ArrowUpRight className="w-4 h-4" />
@@ -647,17 +644,17 @@ function HomeNext() {
               data-card
               className="rounded-lg border border-slate-700/45 bg-slate-900/20 overflow-hidden"
             >
-              <div className="p-6 sm:p-7">
+              <div className="p-5 sm:p-7">
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                       Visuals
                     </p>
-                    <p className="mt-2 font-display font-semibold text-xl text-slate-50">
+                    <p className="mt-2 font-display font-semibold text-lg sm:text-xl text-slate-50">
                       Gallery Walkthrough
                     </p>
                   </div>
-                  <div className="w-11 h-11 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center">
                     <GalleryHorizontal className="w-5 h-5 text-teal" />
                   </div>
                 </div>
@@ -669,7 +666,7 @@ function HomeNext() {
                   <button
                     type="button"
                     onClick={() => navigate("/gallery")}
-                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Open Gallery
                     <ArrowUpRight className="w-4 h-4" />
@@ -679,11 +676,11 @@ function HomeNext() {
             </div>
 
             <div data-card className="rounded-lg border border-slate-700/45 bg-slate-900/20 overflow-hidden">
-              <div className="p-6 sm:p-7">
+              <div className="p-5 sm:p-7">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                   Quick
                 </p>
-                <p className="mt-2 font-display font-semibold text-xl text-slate-50">
+                <p className="mt-2 font-display font-semibold text-lg sm:text-xl text-slate-50">
                   Contact
                 </p>
                 <p className="mt-3 text-sm text-slate-400 leading-relaxed">
@@ -694,7 +691,7 @@ function HomeNext() {
                   <button
                     type="button"
                     onClick={() => navigate("/contact")}
-                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
+                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-5 py-2.5 sm:py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Get in touch
                     <ArrowUpRight className="w-4 h-4" />
