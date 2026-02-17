@@ -94,6 +94,23 @@ function metaForCategory(category: string): CategoryMeta {
   return categoryMeta[category] ?? categoryMeta['Other'];
 }
 
+function projectMatchesSearch(project: Project, normalizedSearch: string): boolean {
+  if (!normalizedSearch) return true;
+
+  const searchable = [
+    project.title,
+    project.client,
+    project.category,
+    project.description,
+    ...project.technologies,
+    ...project.details,
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  return searchable.includes(normalizedSearch);
+}
+
 const baseProjects: Project[] = [
   // Ministry of Transport Projects
   {
@@ -1010,29 +1027,29 @@ export default function Projects() {
   const reduceEffects = useMemo(() => shouldReduceEffects(), []);
   const normalizedSearch = searchTerm.trim().toLowerCase();
 
+  const searchScopedProjects = useMemo(() => {
+    return allProjects.filter((project) => projectMatchesSearch(project, normalizedSearch));
+  }, [normalizedSearch]);
+
+  const filterCategoryCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    counts.All = searchScopedProjects.length;
+
+    for (const category of projectCategories) {
+      if (category === 'All') continue;
+      counts[category] = searchScopedProjects.filter((project) => project.category === category).length;
+    }
+
+    return counts;
+  }, [searchScopedProjects]);
+
   const filteredProjects = useMemo(() => {
     const inCategory =
       activeFilter === 'All'
-        ? allProjects
-        : allProjects.filter((project) => project.category === activeFilter);
+        ? searchScopedProjects
+        : searchScopedProjects.filter((project) => project.category === activeFilter);
 
-    const bySearch = normalizedSearch
-      ? inCategory.filter((project) => {
-          const searchable = [
-            project.title,
-            project.client,
-            project.category,
-            project.description,
-            ...project.technologies,
-            ...project.details,
-          ]
-            .join(' ')
-            .toLowerCase();
-          return searchable.includes(normalizedSearch);
-        })
-      : inCategory;
-
-    const sorted = [...bySearch];
+    const sorted = [...inCategory];
     if (sortBy === 'title') {
       sorted.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortBy === 'category') {
@@ -1042,7 +1059,7 @@ export default function Projects() {
     }
 
     return sorted;
-  }, [activeFilter, normalizedSearch, sortBy]);
+  }, [activeFilter, searchScopedProjects, sortBy]);
 
   const visibleFeatured = filteredProjects.filter((project) => project.featured);
   const visibleProjects = filteredProjects.filter((project) => !project.featured);
@@ -1264,6 +1281,32 @@ export default function Projects() {
       filterBtnRefs.current[key] = el;
     };
 
+  const scrollFilterTo = (key: string) => {
+    const target = filterBtnRefs.current[key];
+    if (!target) return;
+    target.scrollIntoView({
+      block: 'nearest',
+      inline: 'center',
+      behavior: prefersReducedMotion || reduceEffects ? 'auto' : 'smooth',
+    });
+  };
+
+  const cycleFilter = (direction: -1 | 1) => {
+    const index = projectCategories.indexOf(activeFilter as (typeof projectCategories)[number]);
+    const safeIndex = index >= 0 ? index : 0;
+    const total = projectCategories.length;
+
+    for (let step = 0; step < total; step += 1) {
+      const nextIndex = (safeIndex + direction * (step + 1) + total) % total;
+      const nextCategory = projectCategories[nextIndex];
+      const count = filterCategoryCounts[nextCategory] ?? 0;
+      if (count > 0) {
+        setActiveFilter(nextCategory);
+        return;
+      }
+    }
+  };
+
   const moveFilterPillTo = (key: string, immediate = false) => {
     const container = filterWrapRef.current;
     const pill = filterPillRef.current;
@@ -1277,8 +1320,8 @@ export default function Projects() {
 
     const c = container.getBoundingClientRect();
     const t = target.getBoundingClientRect();
-    const x = Math.round(t.left - c.left);
-    const y = Math.round(t.top - c.top);
+    const x = Math.round(t.left - c.left + container.scrollLeft);
+    const y = Math.round(t.top - c.top + container.scrollTop);
     const w = Math.round(t.width);
     const h = Math.round(t.height);
 
@@ -1302,6 +1345,7 @@ export default function Projects() {
 
   useLayoutEffect(() => {
     moveFilterPillTo(activeFilter, true);
+    scrollFilterTo(activeFilter);
   }, [activeFilter]);
 
   useEffect(() => {
@@ -1328,7 +1372,7 @@ export default function Projects() {
         onClick={() => setActiveShowcaseId(project.id)}
         onDoubleClick={() => setActiveProjectId(project.id)}
         className={cn(
-          'group relative w-full text-left transition-all duration-300 overflow-hidden rounded-2xl border p-3 sm:p-4 lg:p-5 flex flex-col h-full',
+          'group relative w-full text-left transition-all duration-300 overflow-hidden rounded-xl sm:rounded-2xl border p-3.5 sm:p-4 lg:p-5 flex flex-col h-full',
           isActive
             ? 'border-teal/45 bg-slate-900/75 shadow-[0_18px_46px_rgba(0,0,0,0.32)] ring-2 ring-teal/20'
             : 'border-slate-700/40 bg-slate-900/38 hover:border-slate-600/70 hover:bg-slate-900/55 hover:shadow-lg'
@@ -1345,7 +1389,7 @@ export default function Projects() {
         <div className="relative z-[2] flex flex-col h-full">
           <div className="flex items-center gap-1.5 sm:gap-2.5 mb-3 sm:mb-4 flex-wrap">
             <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-teal flex-shrink-0" />
-            <span className={cn('px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-xs font-semibold border', categoryMetaItem.chipClass)}>
+            <span className={cn('px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[11px] sm:text-xs font-semibold border', categoryMetaItem.chipClass)}>
               {project.category}
             </span>
             {project.featured && (
@@ -1354,26 +1398,26 @@ export default function Projects() {
               </span>
             )}
           </div>
-          <h4 className="font-display font-semibold text-sm sm:text-base text-slate-50 mb-1.5 sm:mb-2 line-clamp-2 leading-tight">
+          <h4 className="font-display font-semibold text-base sm:text-base text-slate-50 mb-1.5 sm:mb-2 line-clamp-2 leading-tight">
             {project.title}
           </h4>
-          <p className="text-[10px] sm:text-xs text-slate-400 mb-1.5 sm:mb-2.5 font-mono">
+          <p className="text-[11px] sm:text-xs text-slate-400 mb-1.5 sm:mb-2.5 font-mono">
             {project.client}
           </p>
-          <p className="text-xs sm:text-sm text-slate-300 line-clamp-3 mb-2.5 sm:mb-4 flex-grow">
+          <p className="text-[13px] sm:text-sm text-slate-300 line-clamp-3 mb-2.5 sm:mb-4 flex-grow">
             {project.description}
           </p>
           <div className="flex flex-wrap gap-1.5 mt-auto">
             {project.technologies.slice(0, 2).map((tech, i) => (
               <span
                 key={i}
-                className="px-2 py-0.5 text-[10px] rounded-md border border-slate-700/60 bg-slate-900/55 text-slate-300 whitespace-nowrap"
+                className="px-2 py-0.5 text-[11px] sm:text-[10px] rounded-md border border-slate-700/60 bg-slate-900/55 text-slate-300 whitespace-nowrap"
               >
                 {tech}
               </span>
             ))}
             {project.technologies.length > 2 && (
-              <span className="px-2 py-0.5 text-[10px] rounded-md border border-slate-700/50 bg-slate-900/40 text-slate-500 font-semibold">
+              <span className="px-2 py-0.5 text-[11px] sm:text-[10px] rounded-md border border-slate-700/50 bg-slate-900/40 text-slate-500 font-semibold">
                 more
               </span>
             )}
@@ -1384,7 +1428,7 @@ export default function Projects() {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="relative bg-navy z-40 py-24">
+    <section ref={sectionRef} id="projects" className="relative bg-navy z-40 py-16 sm:py-24">
       {/* Grid Overlay */}
       <div className="absolute inset-0 grid-overlay z-[1]" />
       
@@ -1398,34 +1442,39 @@ export default function Projects() {
         {/* Heading */}
         <div
           ref={headingRef}
-          className="relative mb-14 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/20"
+          className="relative mb-10 sm:mb-14 overflow-hidden rounded-lg border border-slate-700/45 bg-slate-900/25 sm:bg-slate-900/20"
         >
            <div className="projects-aurora" />
            <div className="absolute inset-0 grid-overlay opacity-20" />
-           <div className="relative z-[1] p-6 sm:p-10">
+           <div className="relative z-[1] p-5 sm:p-10">
             <div className="grid grid-cols-1 gap-10 items-start">
               <div>
                 <span
                   data-anim
-                  className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block"
+                  className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block"
                 >
                   Work
                 </span>
 
                 <h2
                   data-anim
-                  className="font-display font-bold text-display-2 text-slate-50 mb-4"
+                  className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl"
                 >
-                  Projects that ship. Data you can trust.
+                  <span className="block text-[clamp(30px,8.4vw,56px)] sm:text-display-2 text-slate-50">
+                    Projects that ship.
+                  </span>
+                  <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                    Data you can trust.
+                  </span>
                 </h2>
 
-                <p data-anim className="text-lg text-slate-200 leading-relaxed max-w-3xl">
+                <p data-anim className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-3xl">
                   A selection of GIS and frontend delivery across government, utilities, and product work:
                   enterprise geodatabases, utility networks, field data capture, web mapping, and dashboards.
                   Each project emphasizes clarity, QA/QC, performance, and team enablement through training tracks.
                 </p>
 
-                <div data-anim className="mt-6 flex flex-wrap gap-2">
+                <div data-anim className="mt-5 sm:mt-6 flex flex-wrap gap-2">
                   {['Web Apps', 'Dashboards', 'Web Mapping', 'Design Systems', 'Automation', 'QA/QC', 'Training'].map((tag) => {
                     const isActiveTag = normalizedSearch === tag.toLowerCase();
                     return (
@@ -1434,7 +1483,7 @@ export default function Projects() {
                         type="button"
                         onClick={() => setSearchTerm(tag)}
                         className={cn(
-                          'px-3 py-1 border text-xs rounded-lg transition-colors',
+                          'px-2.5 sm:px-3 py-1 border text-[11px] sm:text-xs rounded-lg transition-colors',
                           isActiveTag
                             ? 'bg-teal/15 border-teal/35 text-teal'
                             : 'bg-slate-900/35 border-slate-700/50 text-slate-300 hover:text-slate-100 hover:border-slate-600/70'
@@ -1446,33 +1495,33 @@ export default function Projects() {
                   })}
                 </div>
 
-                <div data-anim className="mt-7 flex flex-wrap gap-3">
+                <div data-anim className="mt-6 sm:mt-7 flex flex-wrap gap-3">
                   <button
                     type="button"
                     onClick={() => {
                       const el = document.getElementById('projects-featured');
                       el?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Browse Interactive Lane
                   </button>
                   <button
                     type="button"
                     onClick={() => navigate('/gallery')}
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Related Visuals
                   </button>
                   <a
                     href="mailto:saadbarghouth11@gmail.com"
-                    className="inline-flex items-center gap-2 px-5 py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 py-2.5 sm:py-3 bg-teal/10 border border-teal/30 text-teal hover:bg-teal/15 hover:border-teal/50 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Discuss a project
                   </a>
                 </div>
 
-                <p data-anim className="mt-6 font-mono text-xs text-slate-500 max-w-3xl">
+                <p data-anim className="mt-5 sm:mt-6 font-mono text-[11px] sm:text-xs text-slate-500 max-w-3xl">
                   Double-click any project to open full details.
                 </p>
               </div>
@@ -1484,14 +1533,39 @@ export default function Projects() {
         <div
           ref={filterRef}
           id="projects-controls"
-          className="mb-10 rounded-lg border border-slate-700/50 bg-slate-900/20 p-4 sm:p-5"
+          className="mb-8 sm:mb-10 rounded-lg border border-slate-700/50 bg-slate-900/20 p-3.5 sm:p-5"
         >
-          <div className="flex flex-wrap items-center gap-3">
-            <div className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">Filter</div>
+          <div className="flex items-center justify-between gap-2.5">
+            <div className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">Filter Navigation</div>
+            <div className="sm:hidden flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => cycleFilter(-1)}
+                className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700/60 bg-slate-900/30 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors"
+                aria-label="Previous filter"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                onClick={() => cycleFilter(1)}
+                className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-700/60 bg-slate-900/30 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors"
+                aria-label="Next filter"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <p className="mt-1 sm:hidden font-mono text-[11px] tracking-[0.12em] uppercase text-slate-500">
+            Active: <span className="text-teal">{activeFilter}</span>
+          </p>
+
+          <div className="mt-2.5 sm:mt-3">
 
             <div
               ref={filterWrapRef}
-              className="relative flex flex-wrap items-center gap-2"
+              className="relative w-full flex items-center gap-1.5 sm:gap-2 overflow-x-auto overflow-y-hidden whitespace-nowrap pb-1 -mb-1 snap-x snap-mandatory [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
               onMouseLeave={() => moveFilterPillTo(activeFilter)}
             >
               <div
@@ -1503,34 +1577,54 @@ export default function Projects() {
 
               {projectCategories.map((category) => {
                 const isActive = activeFilter === category;
+                const categoryCount = filterCategoryCounts[category] ?? 0;
+                const isDisabled = !isActive && categoryCount === 0;
                 return (
                   <button
                     key={category}
                     ref={setFilterBtnRef(category)}
-                    onMouseEnter={() => moveFilterPillTo(category)}
-                    onFocus={() => moveFilterPillTo(category)}
+                    onMouseEnter={() => {
+                      if (!isDisabled) moveFilterPillTo(category);
+                    }}
+                    onFocus={() => {
+                      if (!isDisabled) moveFilterPillTo(category);
+                    }}
                     onBlur={() => moveFilterPillTo(activeFilter)}
                     onClick={() => setActiveFilter(category)}
+                    disabled={isDisabled}
                     className={cn(
-                      'relative z-[1] inline-flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-sm border border-transparent transition-colors duration-300',
-                      isActive ? 'text-teal' : 'text-slate-300 hover:text-slate-50'
+                      'relative z-[1] snap-start shrink-0 inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg font-mono text-xs sm:text-sm border border-transparent transition-colors duration-300',
+                      isActive ? 'text-teal' : 'text-slate-300 hover:text-slate-50',
+                      isDisabled ? 'opacity-45 cursor-not-allowed hover:text-slate-300' : ''
                     )}
                   >
                     <span>{category}</span>
+                    <span className={cn(
+                      'inline-flex items-center justify-center min-w-[1.2rem] h-5 px-1 rounded-md border text-[10px] font-semibold',
+                      isActive
+                        ? 'border-teal/35 bg-teal/12 text-teal'
+                        : 'border-slate-700/60 bg-slate-900/55 text-slate-400'
+                    )}>
+                      {categoryCount}
+                    </span>
                   </button>
                 );
               })}
             </div>
+
+            <p className="sm:hidden mt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-slate-500">
+              Swipe left/right for all sections.
+            </p>
           </div>
 
-          <div className="mt-4 border-t border-slate-700/40 pt-4 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px_auto] gap-3">
+          <div className="mt-4 border-t border-slate-700/40 pt-4 grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px_auto] gap-2.5 sm:gap-3">
             <div className="relative">
               <input
                 type="search"
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
                 placeholder="Search by title, client, category, or technology..."
-                className="w-full px-3 pr-10 h-11 rounded-lg bg-slate-900/45 border border-slate-700/55 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20"
+                className="w-full px-3 pr-10 h-10 sm:h-11 rounded-lg bg-slate-900/45 border border-slate-700/55 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-teal/50 focus:ring-2 focus:ring-teal/20"
               />
               {searchTerm ? (
                 <button
@@ -1544,7 +1638,7 @@ export default function Projects() {
               ) : null}
             </div>
 
-            <div className="flex items-center h-11 rounded-lg bg-slate-900/45 border border-slate-700/55 px-3">
+            <div className="flex items-center h-10 sm:h-11 rounded-lg bg-slate-900/45 border border-slate-700/55 px-3">
               <select
                 value={sortBy}
                 onChange={(event) => setSortBy(event.target.value as ProjectSort)}
@@ -1561,7 +1655,7 @@ export default function Projects() {
               onClick={resetRefinements}
               disabled={!hasActiveRefinement}
               className={cn(
-                'h-11 px-4 rounded-lg border font-mono text-xs uppercase tracking-[0.1em] transition-colors',
+                'h-10 sm:h-11 px-4 rounded-lg border font-mono text-xs uppercase tracking-[0.1em] transition-colors',
                 hasActiveRefinement
                   ? 'border-teal/35 text-teal bg-teal/10 hover:bg-teal/15 hover:border-teal/50'
                   : 'border-slate-700/55 text-slate-500 bg-slate-900/30 cursor-not-allowed'
@@ -1573,26 +1667,26 @@ export default function Projects() {
 
         </div>
 
-        <div className="mb-4">
-          <h3 className="font-display font-semibold text-display-3 text-slate-100 mb-2">
+        <div id="projects-featured" className="mb-4 sm:mb-5">
+          <h3 className="font-display font-semibold text-2xl sm:text-display-3 text-slate-100 mb-2">
             A Different Interactive Projects Experience
           </h3>
-          <p className="text-sm text-slate-400 max-w-3xl">
+          <p className="text-xs sm:text-sm text-slate-400 max-w-3xl">
             Pick any project from the lane on the left to instantly change the stage. Double-click any item to open full details.
           </p>
         </div>
 
         {visibleProjectSequence.length ? (
-          <div className="mb-8">
+          <div className="mb-7 sm:mb-8">
             <div className="mb-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4" data-testid="projects-grid">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4" data-testid="projects-grid">
                 {visibleProjectSequence.map((project) => renderProjectStrip(project))}
               </div>
             </div>
 
             <div ref={projectsRef} className="project-stage-anim">
               {activeShowcaseProject && (
-                <div className="project-stage-panel relative overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/30 mt-8 sm:mt-0 sm:sticky sm:top-24">
+                <div className="project-stage-panel relative overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/30 mt-6 sm:mt-0 lg:sticky lg:top-24">
                   <div
                     aria-hidden="true"
                     className={cn(
@@ -1689,14 +1783,14 @@ export default function Projects() {
                         onClick={goToPrevShowcase}
                         className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-slate-700/55 bg-slate-900/45 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors font-semibold text-sm"
                       >
-                        ? Previous
+                        Previous
                       </button>
                       <button
                         type="button"
                         onClick={goToNextShowcase}
                         className="flex-1 sm:flex-none px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg border border-slate-700/55 bg-slate-900/45 text-slate-200 hover:text-teal hover:border-teal/40 transition-colors font-semibold text-sm"
                       >
-                        Next ?
+                        Next
                       </button>
                       <div className="hidden sm:flex-1" />
                       <button
