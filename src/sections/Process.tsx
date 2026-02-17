@@ -156,7 +156,7 @@ export default function Process() {
       <section
         ref={sectionRef}
         id="process"
-        className="relative w-full min-h-screen py-24 bg-navy z-[60]"
+        className="relative w-full min-h-0 py-16 sm:py-24 bg-navy z-[60]"
       >
         {/* Aurora */}
         <div className="process-aurora z-[0]" />
@@ -171,12 +171,12 @@ export default function Process() {
         <div className="absolute inset-0 noise-overlay z-[3]" />
 
         <div className="relative z-[4] site-gutter">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
             {/* Left Content Panel */}
             <div ref={contentPanelRef} className="lg:col-span-6">
               <div className="max-w-none lg:max-w-2xl">
-                <div className="mb-6">
-                  <span className="font-mono text-sm text-teal tracking-[0.15em] uppercase">
+                <div className="mb-5 sm:mb-6">
+                  <span className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase">
                     Process
                   </span>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -187,7 +187,7 @@ export default function Process() {
                     ].map((t) => (
                       <span
                         key={t}
-                        className="px-3 py-1.5 bg-slate-900/25 border border-slate-700/50 text-slate-200/85 text-xs font-mono rounded-lg"
+                        className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-slate-900/25 border border-slate-700/50 text-slate-200/85 text-[11px] sm:text-xs font-mono rounded-lg"
                       >
                         {t}
                       </span>
@@ -198,26 +198,31 @@ export default function Process() {
                 {/* Headline */}
                 <h2
                   ref={headlineRef}
-                  className="font-display font-bold text-display-2 text-slate-50 mb-5"
+                  className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl"
                 >
-                  From data to decision.
+                  <span className="block text-[clamp(30px,8vw,54px)] sm:text-display-2 text-slate-50">
+                    From data to decision.
+                  </span>
+                  <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                    Process that stays usable
+                  </span>
                 </h2>
 
                 {/* Body */}
                 <p
                   ref={bodyRef}
-                  className="text-base md:text-lg text-slate-300 leading-relaxed mb-8"
+                  className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed mb-6 sm:mb-8"
                 >
                   A repeatable process designed for clarity and adoption: structured data, defensible QA/QC,
                   and deliverables that remain easy to maintain after handover.
                 </p>
 
-                <p className="font-mono text-xs text-slate-500 uppercase tracking-[0.14em] mb-4">
+                <p className="font-mono text-[11px] sm:text-xs text-slate-500 uppercase tracking-[0.14em] mb-3 sm:mb-4">
                   {isDesktop ? "Hover a step to preview deliverables" : "Tap a step to preview deliverables"}
                 </p>
 
                 {/* Steps */}
-                <div ref={stepsRef} className="space-y-3">
+                <div ref={stepsRef} className="space-y-2.5 sm:space-y-3">
                   {steps.map((step, index) => {
                     const Icon = step.icon;
                     const isActive = index === activeStepIndex;
@@ -231,7 +236,7 @@ export default function Process() {
                         onClick={() => setActiveStepIndex(index)}
                         aria-pressed={isActive}
                         className={cn(
-                          "step-item group w-full text-left flex items-start gap-4 p-4 rounded-lg border transition-all duration-300",
+                          "step-item group w-full text-left flex items-start gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-lg border transition-all duration-300",
                           isActive
                             ? "bg-teal/10 border-teal/40 shadow-[0_0_0_1px_rgba(46,196,182,0.10),0_18px_50px_rgba(0,0,0,0.35)]"
                             : "bg-slate-800/15 border-slate-700/35 hover:bg-slate-800/20 hover:border-teal/25"
@@ -239,23 +244,23 @@ export default function Process() {
                       >
                         <div
                           className={cn(
-                            "flex-shrink-0 w-12 h-12 rounded-lg border flex items-center justify-center transition-colors duration-300",
+                            "flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-lg border flex items-center justify-center transition-colors duration-300",
                             isActive
                               ? "bg-teal/15 border-teal/35"
                               : "bg-slate-900/30 border-slate-700/50 group-hover:bg-teal/10 group-hover:border-teal/25"
                           )}
                         >
-                          <Icon className="w-6 h-6 text-teal" />
+                          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                         </div>
 
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-4">
+                          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-4">
                             <div className="min-w-0">
                               <div className="flex items-center gap-3 mb-1">
                                 <span className="font-mono text-xs text-teal tracking-[0.18em]">
                                   {step.number}
                                 </span>
-                                <h3 className="font-display font-semibold text-lg text-slate-50">
+                                <h3 className="font-display font-semibold text-base sm:text-lg text-slate-50">
                                   {step.title}
                                 </h3>
                               </div>
@@ -263,7 +268,7 @@ export default function Process() {
 
                             <span
                               className={cn(
-                                "inline-flex items-center gap-1.5 flex-shrink-0 font-mono text-[11px] px-2.5 py-1 rounded-lg border",
+                                "inline-flex w-fit items-center gap-1.5 flex-shrink-0 font-mono text-[10px] sm:text-[11px] px-2 py-1 rounded-lg border",
                                 isActive
                                   ? "border-teal/35 bg-teal/10 text-teal"
                                   : "border-slate-700/50 bg-slate-900/20 text-slate-400 group-hover:border-teal/25 group-hover:text-slate-300"
@@ -274,16 +279,16 @@ export default function Process() {
                             </span>
                           </div>
 
-                          <p className="text-sm text-slate-400 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                             {step.description}
                           </p>
 
-                          <div className="mt-3 flex flex-wrap gap-2">
+                          <div className="mt-2.5 sm:mt-3 flex flex-wrap gap-2">
                             {step.details.map((detail) => (
                               <span
                                 key={detail}
                                 className={cn(
-                                  "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-mono",
+                                  "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-[11px] sm:text-xs font-mono",
                                   isActive
                                     ? "border-slate-50/10 bg-slate-900/35 text-slate-200/90"
                                     : "border-slate-700/40 bg-slate-900/25 text-slate-300/80"
@@ -296,9 +301,9 @@ export default function Process() {
                           </div>
 
                           {!isDesktop && isActive ? (
-                            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div className="mt-3.5 sm:mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
                               {step.deliverables.slice(0, 4).map((d) => (
-                                <div key={d} className="flex items-start gap-2 text-xs text-slate-300">
+                                <div key={d} className="flex items-start gap-2 text-[11px] sm:text-xs text-slate-300">
                                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal/70 flex-shrink-0" />
                                   <span className="leading-relaxed">{d}</span>
                                 </div>
@@ -314,59 +319,59 @@ export default function Process() {
             </div>
 
             {/* Right Technologies Panel */}
-            <div ref={imagePanelRef} className="lg:col-span-6 lg:sticky lg:top-24">
-              <div className="relative rounded-lg overflow-hidden border border-slate-700/50 bg-slate-900/20 h-auto p-6 sm:p-8">
-                <div className="mb-6">
-                  <p className="font-mono text-[11px] text-teal tracking-[0.16em] uppercase">
+            <div ref={imagePanelRef} className="lg:col-span-6 mt-1 sm:mt-2 lg:mt-0 lg:sticky lg:top-24">
+              <div className="relative rounded-lg overflow-hidden border border-slate-700/50 bg-slate-900/20 h-auto p-4 sm:p-8">
+                <div className="mb-5 sm:mb-6">
+                  <p className="font-mono text-[10px] sm:text-[11px] text-teal tracking-[0.16em] uppercase">
                     Step {activeStep.number} - {activeStep.duration}
                   </p>
-                  <h3 className="mt-2 font-display font-semibold text-3xl text-slate-50">
+                  <h3 className="mt-2 font-display font-semibold text-2xl sm:text-3xl text-slate-50">
                     {activeStep.title}
                   </h3>
-                  <p className="mt-4 text-base text-slate-200/90 leading-relaxed">
+                  <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-200/90 leading-relaxed">
                     {activeStep.description}
                   </p>
                 </div>
 
-                <div className="mt-8">
-                  <p className="font-mono text-xs text-teal tracking-[0.16em] uppercase mb-4">
+                <div className="mt-6 sm:mt-8">
+                  <p className="font-mono text-xs text-teal tracking-[0.16em] uppercase mb-3 sm:mb-4">
                     Technologies & Tools
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {activeStep.tools.map((t) => (
                       <div
                         key={t}
-                        className="px-4 py-3 rounded-lg bg-teal/10 border border-teal/25 flex items-center gap-3 hover:bg-teal/15 hover:border-teal/35 transition-colors"
+                        className="px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-lg bg-teal/10 border border-teal/25 flex items-center gap-3 hover:bg-teal/15 hover:border-teal/35 transition-colors"
                       >
                         <div className="w-2 h-2 rounded-full bg-teal/80 flex-shrink-0" />
-                        <span className="text-sm font-medium text-slate-100">{t}</span>
+                        <span className="text-xs sm:text-sm font-medium text-slate-100">{t}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-8 pt-8 border-t border-slate-700/30">
+                <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-slate-700/30">
                   <p className="font-mono text-xs text-slate-400 uppercase tracking-wide mb-4">
                     Deliverables
                   </p>
                   <div className="space-y-3">
                     {activeStep.deliverables.map((d) => (
-                      <div key={d} className="flex items-start gap-3 text-sm text-slate-300">
-                        <CheckCircle className="w-5 h-5 text-teal/70 mt-0.5 flex-shrink-0" />
+                      <div key={d} className="flex items-start gap-3 text-xs sm:text-sm text-slate-300">
+                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-teal/70 mt-0.5 flex-shrink-0" />
                         <span className="leading-relaxed">{d}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="mt-8 flex items-center gap-2">
+                <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-2">
                   {steps.map((s, i) => (
                     <button
                       key={s.number}
                       type="button"
                       onClick={() => setActiveStepIndex(i)}
                       className={cn(
-                        "w-10 h-10 rounded-lg border flex items-center justify-center font-mono text-sm font-semibold transition-all",
+                        "w-9 h-9 sm:w-10 sm:h-10 rounded-lg border flex items-center justify-center font-mono text-xs sm:text-sm font-semibold transition-all",
                         i === activeStepIndex
                           ? "bg-teal/15 border-teal/35 text-teal"
                           : "bg-slate-900/30 border-slate-700/50 text-slate-400 hover:text-teal hover:border-teal/35 hover:bg-slate-900/50"
@@ -385,7 +390,7 @@ export default function Process() {
 
       <section
         id="process-details"
-        className="relative w-full py-24 bg-navy z-[50]"
+        className="relative w-full py-16 sm:py-24 bg-navy z-[50]"
       >
         <div className="process-aurora z-[0]" />
         <div className="absolute inset-0 grid-overlay z-[1]" />
@@ -394,33 +399,38 @@ export default function Process() {
 
         <div className="relative z-[4] site-gutter">
           <div className="w-full max-w-6xl mx-auto">
-            <div className="mb-12">
-              <span className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block">
+            <div className="mb-8 sm:mb-12">
+              <span className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block">
                 What You Get
               </span>
-              <h2 className="font-display font-bold text-display-3 text-slate-50 mb-4">
-                Deliverables you can trust and reuse.
+              <h2 className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl">
+                <span className="block text-[clamp(28px,7.4vw,44px)] sm:text-display-3 text-slate-50">
+                  Deliverables you can trust.
+                </span>
+                <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                  Built to reuse
+                </span>
               </h2>
-              <p className="text-base md:text-lg text-slate-300 leading-relaxed max-w-3xl">
+              <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-3xl">
                 The goal is not "a map". It is a clean dataset, clear rules, and a publishable package that
                 supports decisions and survives handover.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-6 hover:border-teal/25 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-4">
-                  <FileText className="w-6 h-6 text-teal" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-4 sm:p-6 hover:border-teal/25 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-3 sm:mb-4">
+                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
-                <p className="font-display font-semibold text-lg text-slate-50 mb-2">
+                <p className="font-display font-semibold text-base sm:text-lg text-slate-50 mb-2">
                   Handover Pack
                 </p>
-                <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
                   Documentation that makes the deliverable maintainable by the next team.
                 </p>
                 <ul className="space-y-2">
                   {["Data dictionary", "Runbook / SOP", "Change log", "Quickstart guide"].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-teal/70 mt-0.5" />
                       {x}
                     </li>
@@ -428,19 +438,19 @@ export default function Process() {
                 </ul>
               </div>
 
-              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-6 hover:border-teal/25 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-4">
-                  <ShieldCheck className="w-6 h-6 text-teal" />
+              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-4 sm:p-6 hover:border-teal/25 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-3 sm:mb-4">
+                  <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
-                <p className="font-display font-semibold text-lg text-slate-50 mb-2">
+                <p className="font-display font-semibold text-base sm:text-lg text-slate-50 mb-2">
                   QA/QC Gates
                 </p>
-                <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
                   Validation checkpoints that keep data defensible and review cycles fast.
                 </p>
                 <ul className="space-y-2">
                   {["Topology checks", "Attribute validation", "Schema consistency", "Exceptions tracking"].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-teal/70 mt-0.5" />
                       {x}
                     </li>
@@ -448,19 +458,19 @@ export default function Process() {
                 </ul>
               </div>
 
-              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-6 hover:border-teal/25 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-4">
-                  <Layers className="w-6 h-6 text-teal" />
+              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-4 sm:p-6 hover:border-teal/25 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-3 sm:mb-4">
+                  <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
-                <p className="font-display font-semibold text-lg text-slate-50 mb-2">
+                <p className="font-display font-semibold text-base sm:text-lg text-slate-50 mb-2">
                   Publishing Ready
                 </p>
-                <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
                   Outputs designed for ArcGIS Online/Enterprise delivery and stakeholder clarity.
                 </p>
                 <ul className="space-y-2">
                   {["Web layers", "Dashboards", "StoryMaps / reports", "Access & sharing rules"].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-teal/70 mt-0.5" />
                       {x}
                     </li>
@@ -468,19 +478,19 @@ export default function Process() {
                 </ul>
               </div>
 
-              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-6 hover:border-teal/25 transition-colors">
-                <div className="w-12 h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-4">
-                  <MessagesSquare className="w-6 h-6 text-teal" />
+              <div className="bg-slate-800/15 border border-slate-700/35 rounded-lg p-4 sm:p-6 hover:border-teal/25 transition-colors">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center mb-3 sm:mb-4">
+                  <MessagesSquare className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                 </div>
-                <p className="font-display font-semibold text-lg text-slate-50 mb-2">
+                <p className="font-display font-semibold text-base sm:text-lg text-slate-50 mb-2">
                   Clear Reviews
                 </p>
-                <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-4">
                   A simple cadence so stakeholders can approve quickly and confidently.
                 </p>
                 <ul className="space-y-2">
                   {["Kickoff + scope alignment", "Step demos", "Issue list", "Final walkthrough"].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-teal/70 mt-0.5" />
                       {x}
                     </li>
@@ -489,19 +499,19 @@ export default function Process() {
               </div>
             </div>
 
-            <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-6">
-              <div className="lg:col-span-7 bg-slate-800/12 border border-slate-700/35 rounded-lg p-6">
+            <div className="mt-8 sm:mt-12 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+              <div className="lg:col-span-7 bg-slate-800/12 border border-slate-700/35 rounded-lg p-4 sm:p-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                   Typical Timeline
                 </p>
-                <p className="mt-2 font-display font-semibold text-xl text-slate-50">
+                <p className="mt-2 font-display font-semibold text-lg sm:text-xl text-slate-50">
                   Four phases, predictable checkpoints.
                 </p>
                 <div className="mt-5 divide-y divide-slate-700/50 border border-slate-700/35 rounded-lg overflow-hidden">
                   {steps.map((s) => (
                     <div
                       key={s.number}
-                      className="flex items-center justify-between gap-4 px-4 py-3 bg-slate-900/20"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 px-3 sm:px-4 py-2.5 sm:py-3 bg-slate-900/20"
                     >
                       <div className="flex items-center gap-3 min-w-0">
                         <span className="font-mono text-xs text-teal tracking-[0.18em]">
@@ -511,24 +521,24 @@ export default function Process() {
                           {s.title}
                         </span>
                       </div>
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[11px] text-slate-400">
+                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-slate-400">
                         <Clock className="w-3.5 h-3.5 text-teal/70" />
                         {s.duration}
                       </span>
                     </div>
                   ))}
                 </div>
-                <p className="mt-4 text-sm text-slate-400 leading-relaxed">
+                <p className="mt-4 text-xs sm:text-sm text-slate-400 leading-relaxed">
                   Timelines vary by data readiness and publishing scope, but the checkpoints remain the same:
                   validate early, review often, and document decisions.
                 </p>
               </div>
 
-              <div className="lg:col-span-5 bg-slate-800/12 border border-slate-700/35 rounded-lg p-6">
+              <div className="lg:col-span-5 bg-slate-800/12 border border-slate-700/35 rounded-lg p-4 sm:p-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-wide">
                   Inputs
                 </p>
-                <p className="mt-2 font-display font-semibold text-xl text-slate-50">
+                <p className="mt-2 font-display font-semibold text-lg sm:text-xl text-slate-50">
                   What I need from you.
                 </p>
                 <ul className="mt-5 space-y-3">
@@ -538,7 +548,7 @@ export default function Process() {
                     "Stakeholders: who approves what, and when",
                     "Delivery format: Pro project, web apps, dashboards, or reports",
                   ].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <CheckCircle className="w-4 h-4 text-teal/70 mt-0.5" />
                       <span className="leading-relaxed">{x}</span>
                     </li>
@@ -547,25 +557,25 @@ export default function Process() {
               </div>
             </div>
 
-            <div className="mt-12 rounded-lg border border-slate-700/45 bg-gradient-to-br from-teal/10 via-slate-900/20 to-slate-900/20 p-6 sm:p-8">
+            <div className="mt-8 sm:mt-12 rounded-lg border border-slate-700/45 bg-gradient-to-br from-teal/10 via-slate-900/20 to-slate-900/20 p-5 sm:p-8">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                 <div className="min-w-0">
                   <p className="font-mono text-xs text-teal tracking-[0.15em] uppercase">
                     Next Step
                   </p>
-                  <h3 className="mt-2 font-display font-semibold text-2xl text-slate-50">
+                  <h3 className="mt-2 font-display font-semibold text-xl sm:text-2xl text-slate-50">
                     Want a one-page process plan for your project?
                   </h3>
-                  <p className="mt-3 text-sm text-slate-300 leading-relaxed max-w-2xl">
+                  <p className="mt-3 text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
                     I can send a short plan with scope, data sources, QA/QC gates, timeline, and delivery outputs.
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3 w-full lg:w-auto">
                   <button
                     type="button"
                     onClick={() => navigate("/contact")}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-teal hover:bg-teal-dark text-navy font-semibold rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     Start a project
                     <ArrowUpRight className="w-4 h-4" />
@@ -573,7 +583,7 @@ export default function Process() {
                   <button
                     type="button"
                     onClick={() => navigate("/projects")}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
+                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 bg-slate-900/40 border border-slate-700/60 text-slate-200 hover:text-teal hover:border-teal/40 rounded-lg transition-all duration-300 hover:-translate-y-0.5 touch-target"
                   >
                     See projects
                     <ArrowUpRight className="w-4 h-4" />
