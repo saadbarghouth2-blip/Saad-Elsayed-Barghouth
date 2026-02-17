@@ -129,6 +129,78 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
+      "Our zoning package had conflicting layers and unclear boundaries. Saad restructured everything, documented assumptions, and delivered maps we could confidently submit to stakeholders.",
+    author: "Urban Planning Consultant",
+    role: "Freelance - Zoning & Land Use Package",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Clean structure and submission-ready outputs",
+  },
+  {
+    quote:
+      "Before working with Saad, updates were scattered across files and emails. He built a practical monitoring dashboard with clear status logic, and our weekly reporting became much easier.",
+    author: "Program Manager",
+    role: "Freelance - NGO Monitoring Dashboard",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Unified dashboard that simplified weekly reporting",
+  },
+  {
+    quote:
+      "Saad designed a maintenance workflow that connected field updates with office review. Data quality improved immediately, and handover to our internal team was smooth.",
+    author: "Operations Supervisor",
+    role: "Freelance - Asset Maintenance Workflow",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Field-to-office workflow with reliable handover",
+  },
+  {
+    quote:
+      "We needed a fast GIS MVP for a startup demo. Saad delivered a responsive web map experience that looked polished, worked on mobile, and clearly communicated our value to investors.",
+    author: "Startup Founder",
+    role: "Freelance - GIS MVP",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Mobile-ready MVP delivered under tight timelines",
+  },
+  {
+    quote:
+      "Monthly executive reporting was manual and error-prone. Saad automated the extraction and map summary process, so our PMO now publishes consistent updates with less effort.",
+    author: "PMO Coordinator",
+    role: "Freelance - Reporting Automation",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Automation that reduced reporting effort",
+  },
+  {
+    quote:
+      "Saad implemented validation logic for our field survey forms and built a clear review queue. We saw fewer rejected submissions and faster approval cycles in the first month.",
+    author: "Field Coordinator",
+    role: "Freelance - Survey QA System",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Validation-first setup that cut rejection rates",
+  },
+  {
+    quote:
+      "Our client portal needed better map clarity and faster load times. Saad optimized layers, improved interaction patterns, and delivered a cleaner experience our clients actually used.",
+    author: "Client Success Lead",
+    role: "Freelance - Client Map Portal",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Faster, cleaner portal with stronger adoption",
+  },
+  {
+    quote:
+      "Route planning decisions were inconsistent across teams. Saad built a repeatable network-analysis workflow with transparent criteria, which made review and approval much more objective.",
+    author: "Infrastructure Consultant",
+    role: "Freelance - Route Optimization Analysis",
+    rating: 5,
+    category: "Freelance",
+    highlight: "Transparent analysis with consistent decisions",
+  },
+  {
+    quote:
       "Publishing services with proper structure and access control was critical for us. Saad delivered stable services and a clean data model that improved performance and reliability.",
     author: "IT Manager",
     role: "Private Sector - Geo Services",
