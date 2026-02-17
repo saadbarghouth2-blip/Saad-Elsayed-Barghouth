@@ -33,11 +33,12 @@ const navLinks = [...PROFILE_LINKS, ...WORK_LINKS];
 
 const COMPACT_PRIMARY_LINKS = [
   PROFILE_LINKS[0], // About
+  PROFILE_LINKS[1], // Skills
   WORK_LINKS[0], // Projects
   WORK_LINKS[2], // Gallery
 ] as const;
 
-const COMPACT_MORE_PROFILE_LINKS = [PROFILE_LINKS[1], PROFILE_LINKS[2]] as const; // Skills, Experience
+const COMPACT_MORE_PROFILE_LINKS = [PROFILE_LINKS[2]] as const; // Experience
 const COMPACT_MORE_WORK_LINKS = [WORK_LINKS[1], WORK_LINKS[3]] as const; // Process, Testimonials
 
 const mobileItems = [
@@ -55,12 +56,14 @@ export default function Navigation() {
   const onHome = location.pathname === '/';
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
   const desktopNavRef = useRef<HTMLDivElement>(null);
   const desktopPillRef = useRef<HTMLDivElement>(null);
   const desktopItemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const mobileItemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const [mobileNavHighlighted, setMobileNavHighlighted] = useState<string | null>(null);
   const mobileScrollRef = useRef<HTMLDivElement | null>(null);
+  const [mobileNavTop, setMobileNavTop] = useState(64);
   const [hasScrollTop, setHasScrollTop] = useState(false);
   const [hasScrollBottom, setHasScrollBottom] = useState(false);
   const scrollRafRef = useRef<number | null>(null);
@@ -138,6 +141,32 @@ export default function Navigation() {
       window.removeEventListener('resize', schedule);
       if (scrollRafRef.current != null) window.cancelAnimationFrame(scrollRafRef.current);
       scrollRafRef.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    const navEl = navRef.current;
+    if (!navEl) return;
+
+    const updateMobileNavTop = () => {
+      const nextTop = Math.max(0, Math.round(navEl.getBoundingClientRect().bottom));
+      setMobileNavTop((prevTop) => (Math.abs(prevTop - nextTop) > 1 ? nextTop : prevTop));
+    };
+
+    updateMobileNavTop();
+    window.addEventListener('resize', updateMobileNavTop);
+    window.addEventListener('scroll', updateMobileNavTop, { passive: true });
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver === 'function') {
+      resizeObserver = new ResizeObserver(updateMobileNavTop);
+      resizeObserver.observe(navEl);
+    }
+
+    return () => {
+      window.removeEventListener('resize', updateMobileNavTop);
+      window.removeEventListener('scroll', updateMobileNavTop);
+      resizeObserver?.disconnect();
     };
   }, []);
 
@@ -295,6 +324,7 @@ export default function Navigation() {
   return (
     <>
       <nav
+        ref={navRef}
         className={cn(
           'fixed top-0 left-0 right-0 z-[100] transition-colors duration-500',
           isScrolled
@@ -601,6 +631,18 @@ export default function Navigation() {
         </div>
       </nav>
 
+      {/* Backdrop behind mobile menu for stronger contrast */}
+      <button
+        type="button"
+        aria-label="Close menu"
+        onClick={() => setIsMobileMenuOpen(false)}
+        tabIndex={isMobileMenuOpen ? 0 : -1}
+        className={cn(
+          'fixed inset-0 md:hidden z-[98] bg-navy/80 backdrop-blur-[2px] transition-opacity duration-300',
+          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        )}
+      />
+
       {/* Mobile Menu — push-down panel (mobile-first) */}
       <div
         id="mobile-nav"
@@ -608,19 +650,23 @@ export default function Navigation() {
         data-has-scroll-top={hasScrollTop ? 'true' : undefined}
         data-has-scroll-bottom={hasScrollBottom ? 'true' : undefined}
         className={cn(
-          'fixed md:hidden top-full left-0 right-0 w-full overflow-y-auto z-[99] transition-all duration-300 ease-in-out',
+          'fixed md:hidden left-0 right-0 w-full overflow-hidden z-[99] transition-[max-height,opacity,visibility] duration-300 ease-in-out',
           isMobileMenuOpen 
-            ? 'max-h-[calc(100vh-4rem)] opacity-100 visible' 
+            ? 'opacity-100 visible' 
             : 'max-h-0 opacity-0 invisible'
         )}
+        style={{
+          top: mobileNavTop,
+          maxHeight: isMobileMenuOpen ? `calc(100dvh - ${mobileNavTop}px)` : 0,
+        }}
       >
-        <div className="w-full bg-navy/98 border-t border-slate-700/60 backdrop-blur-sm shadow-2xl shadow-black/40 relative">
-          <div ref={mobileScrollRef} className="site-gutter py-4 mobile-nav-scroll">
-            <p className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em] mb-3">
+        <div className="w-full bg-[rgba(7,10,16,0.97)] border-t border-slate-600/80 backdrop-blur-md shadow-2xl shadow-black/60 relative">
+          <div ref={mobileScrollRef} className="relative z-[1] site-gutter py-3 mobile-nav-scroll">
+            <p className="font-mono text-[11px] text-slate-400 uppercase tracking-[0.14em] mb-2">
               Navigation
             </p>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
               {mobileItems.map((item, index) => {
                 if (item.type === 'divider') {
                   return (
@@ -636,7 +682,7 @@ export default function Navigation() {
                   return (
                     <p
                       key={`heading-${item.title}`}
-                      className="mt-2 font-mono text-[11px] text-slate-500 uppercase tracking-[0.18em]"
+                      className="mt-1.5 font-mono text-[10px] text-slate-500 uppercase tracking-[0.18em]"
                     >
                       {item.title}
                     </p>
@@ -664,20 +710,20 @@ export default function Navigation() {
                     onPointerDown={() => prefetchRoute(item.to)}
                     className={({ isActive }) =>
                       cn(
-                        'select-none w-full flex items-center justify-between px-4 py-2.5 rounded-lg border transition-colors duration-200',
+                        'select-none w-full flex items-center justify-between px-4 py-2 rounded-lg border transition-colors duration-200',
                         isActive || mobileNavHighlighted === item.to
-                          ? 'bg-teal/10 border-teal/35 text-teal'
-                          : 'bg-transparent border-slate-700/30 text-slate-200 hover:text-teal hover:border-teal/30'
+                          ? 'bg-teal/15 border-teal/40 text-teal'
+                          : 'bg-slate-900/35 border-slate-700/45 text-slate-100 hover:text-teal hover:border-teal/35 hover:bg-slate-900/55'
                       )
                     }
                   >
-                    <span className="font-display text-lg">{item.label}</span>
+                    <span className="font-display text-base sm:text-lg">{item.label}</span>
                   </NavLink>
                 );
               })}
             </div>
 
-            <div className="mt-4 flex items-center justify-center">
+            <div className="mt-3 flex items-center justify-center">
               <NavLink
                 to="/contact"
                 onClick={() => {
@@ -685,7 +731,7 @@ export default function Navigation() {
                     setIsMobileMenuOpen(false);
                   }, 50);
                 }}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-teal text-navy font-semibold rounded-lg touch-target hover:bg-teal-dark transition-colors duration-300"
+                className="w-full flex items-center justify-center gap-2 px-5 py-2.5 bg-teal text-navy font-semibold rounded-lg touch-target hover:bg-teal-dark transition-colors duration-300"
               >
                 <Mail className="w-5 h-5" />
                 Get in Touch
