@@ -97,7 +97,7 @@ export default function Navigation() {
   // Close mobile menu when window is resized to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 1024) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -594,7 +594,7 @@ export default function Navigation() {
           </div>
 
           {/* Desktop Actions (right) */}
-          <div className="hidden md:flex items-center gap-3 lg:gap-4">
+          <div className="hidden lg:flex items-center gap-3 lg:gap-4">
             <div className="hidden lg:block">
               <CommandPalette />
             </div>
@@ -617,8 +617,8 @@ export default function Navigation() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className={cn(
-              'md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-lg border flex items-center justify-center transition-colors duration-150',
-              isScrolled ? 'bg-slate-900/40 border-slate-700/60 text-slate-200' : 'bg-navy/35 border-slate-700/50 text-slate-200',
+              'lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-lg border flex items-center justify-center shadow-[0_8px_22px_rgba(0,0,0,0.25)] transition-colors duration-150',
+              isScrolled ? 'bg-slate-900/70 border-slate-600/80 text-slate-100' : 'bg-navy/70 border-slate-600/70 text-slate-100',
               isMobileMenuOpen ? 'border-teal/40 text-teal' : 'hover:border-teal/30 hover:text-teal'
             )}
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -638,7 +638,7 @@ export default function Navigation() {
         onClick={() => setIsMobileMenuOpen(false)}
         tabIndex={isMobileMenuOpen ? 0 : -1}
         className={cn(
-          'fixed inset-0 md:hidden z-[98] bg-navy/80 backdrop-blur-[2px] transition-opacity duration-300',
+          'fixed inset-0 lg:hidden z-[98] bg-navy/80 backdrop-blur-[2px] transition-opacity duration-300',
           isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         )}
       />
@@ -650,7 +650,7 @@ export default function Navigation() {
         data-has-scroll-top={hasScrollTop ? 'true' : undefined}
         data-has-scroll-bottom={hasScrollBottom ? 'true' : undefined}
         className={cn(
-          'fixed md:hidden left-0 right-0 w-full overflow-hidden z-[99] transition-[max-height,opacity,visibility] duration-300 ease-in-out',
+          'fixed lg:hidden left-0 right-0 w-full overflow-hidden z-[99] transition-[max-height,opacity,visibility] duration-300 ease-in-out',
           isMobileMenuOpen 
             ? 'opacity-100 visible' 
             : 'max-h-0 opacity-0 invisible'
