@@ -128,7 +128,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full min-h-screen py-24 bg-navy z-20"
+      className="relative w-full min-h-0 py-16 sm:py-24 bg-navy z-20"
     >
       {/* Grid Overlay */}
       <div className="absolute inset-0 grid-overlay z-[1]" />
@@ -144,35 +144,40 @@ export default function About() {
           {/* Section Header */}
           <div
             ref={headingRef}
-            className="relative mb-14 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/20"
+            className="relative mb-10 sm:mb-14 overflow-hidden rounded-lg border border-slate-700/40 bg-slate-900/25 sm:bg-slate-900/20"
           >
             <div className="absolute inset-0 grid-overlay opacity-20" />
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_20%_26%,rgba(46,196,182,0.18),transparent_60%)]" />
-            <div className="relative z-[1] p-6 sm:p-10">
-              <span className="font-mono text-sm text-teal tracking-[0.15em] uppercase mb-4 block">
+            <div className="relative z-[1] p-5 sm:p-10">
+              <span className="font-mono text-xs sm:text-sm text-teal tracking-[0.15em] uppercase mb-3 sm:mb-4 block">
                 About
               </span>
-              <h2 className="font-display font-bold text-display-2 text-slate-50 mb-4">
-                Precision in every layer.
+              <h2 className="font-display font-bold leading-[0.98] mb-4 sm:mb-5 max-w-4xl">
+                <span className="block text-[clamp(30px,7.8vw,54px)] sm:text-display-2 text-slate-50">
+                  Precision in every layer.
+                </span>
+                <span className="mt-2 inline-flex items-center rounded-lg border border-teal/35 bg-teal/10 px-3 py-1 font-mono text-[11px] sm:text-xs tracking-[0.12em] uppercase text-teal">
+                  Built for reliable handover
+                </span>
               </h2>
-              <p className="text-lg text-slate-200 leading-relaxed max-w-3xl">
+              <p className="text-sm sm:text-lg text-slate-300 sm:text-slate-200 leading-relaxed max-w-3xl">
                 GIS delivery focused on clean data models, defensible QA/QC, and handover-ready outputs.
               </p>
 
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {[
                   { label: 'Markets', value: 'EG + KSA', icon: MapPin },
                   { label: 'Focus', value: 'QA/QC', icon: BadgeCheck },
                 ].map(({ label, value, icon: Icon }) => (
                   <div
                     key={label}
-                    className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-4 flex items-start gap-3"
+                    className="rounded-lg border border-slate-700/45 bg-slate-900/20 p-3.5 sm:p-4 flex items-start gap-3"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-teal" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-teal" />
                     </div>
                     <div className="min-w-0">
-                      <p className="font-display font-semibold text-lg text-slate-50 leading-none">{value}</p>
+                      <p className="font-display font-semibold text-base sm:text-lg text-slate-50 leading-none">{value}</p>
                       <p className="mt-2 font-mono text-[11px] text-slate-400 uppercase tracking-[0.16em]">{label}</p>
                     </div>
                   </div>
@@ -182,24 +187,24 @@ export default function About() {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 mb-12 sm:mb-20">
             {/* Left - Text Content */}
-            <div ref={contentRef} className="lg:col-span-7 space-y-6">
-              <p data-anim className="text-lg text-slate-200 leading-relaxed">
+            <div ref={contentRef} className="lg:col-span-7 space-y-4 sm:space-y-6">
+              <p data-anim className="text-sm sm:text-lg text-slate-200 leading-relaxed">
                 I am a <span className="text-teal font-semibold">Senior GIS Analyst</span> with experience focused on improving productivity by designing and implementing efficient geospatial workflows.
               </p>
 
-              <p data-anim className="text-base text-slate-300 leading-relaxed">
+              <p data-anim className="text-sm sm:text-base text-slate-300 leading-relaxed">
                 I care about delivery quality and adoption: clear schemas, consistent naming, validation rules,
                 and documentation that makes the handover easy for the next team.
               </p>
 
-              <p data-anim className="text-base text-slate-300 leading-relaxed">
+              <p data-anim className="text-sm sm:text-base text-slate-300 leading-relaxed">
                 My work spans ESRI products (ArcGIS Pro, ArcGIS Online, ArcGIS Enterprise), modern web development (React, TypeScript, Tailwind), and enterprise geodatabase design. I have delivered projects across
                 government and private sectors in Egypt and Saudi Arabia.
               </p>
 
-              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-6">
+              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-4 sm:p-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">
                   What I Deliver
                 </p>
@@ -211,7 +216,7 @@ export default function About() {
                     'Web delivery when needed: layers, dashboards, StoryMaps, and field apps',
                     'Handover pack: data dictionary, runbook, and a short walkthrough/training',
                   ].map((x) => (
-                    <li key={x} className="text-sm text-slate-300 flex items-start gap-2">
+                    <li key={x} className="text-xs sm:text-sm text-slate-300 flex items-start gap-2">
                       <span className="mt-2 w-1.5 h-1.5 rounded-full bg-teal/70 flex-shrink-0" />
                       <span className="leading-relaxed">{x}</span>
                     </li>
@@ -224,7 +229,7 @@ export default function About() {
                 <p className="font-mono text-xs text-slate-500 uppercase tracking-wide mb-3">Core Expertise</p>
                 <div className="flex flex-wrap gap-2">
                   {['ArcGIS Pro', 'ArcGIS Enterprise', 'React', 'TypeScript', 'Python/ArcPy', 'Web GIS', 'Geodatabase Design'].map((skill) => (
-                    <span key={skill} className="px-3 py-1.5 bg-slate-800/35 border border-slate-700/50 text-slate-200/85 text-sm rounded-lg">
+                    <span key={skill} className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-slate-800/35 border border-slate-700/50 text-slate-200/85 text-xs sm:text-sm rounded-lg">
                       {skill}
                     </span>
                   ))}
@@ -233,8 +238,8 @@ export default function About() {
             </div>
 
             {/* Right - Details */}
-            <div ref={asideRef} className="lg:col-span-5 space-y-5">
-              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-6">
+            <div ref={asideRef} className="lg:col-span-5 space-y-4 sm:space-y-5">
+              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-4 sm:p-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">
                   Quick Facts
                 </p>
@@ -246,14 +251,14 @@ export default function About() {
                     { icon: Clock, label: 'Style', value: 'Fast iterations with clear review checkpoints' },
                   ].map(({ icon: Icon, label, value }) => (
                     <div key={label} className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
-                        <Icon className="w-5 h-5 text-teal" />
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-teal" />
                       </div>
                       <div className="min-w-0">
                         <p className="font-mono text-[11px] text-slate-500 uppercase tracking-[0.16em]">
                           {label}
                         </p>
-                        <p className="mt-1 text-sm text-slate-200/90 leading-relaxed">
+                        <p className="mt-1 text-xs sm:text-sm text-slate-200/90 leading-relaxed">
                           {value}
                         </p>
                       </div>
@@ -262,17 +267,17 @@ export default function About() {
                 </div>
               </div>
 
-              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-6">
+              <div data-anim className="rounded-lg border border-slate-700/40 bg-slate-900/20 p-4 sm:p-6">
                 <p className="font-mono text-xs text-slate-400 uppercase tracking-[0.14em]">
                   Education & Certifications
                 </p>
                 <div className="mt-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
-                      <GraduationCap className="w-5 h-5 text-teal" />
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-teal/10 border border-teal/25 flex items-center justify-center flex-shrink-0">
+                      <GraduationCap className="w-4 h-4 sm:w-5 sm:h-5 text-teal" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm text-slate-200/90 leading-relaxed">
+                      <p className="text-xs sm:text-sm text-slate-200/90 leading-relaxed">
                         Bachelor's degree in Geomatics & Geographic Information Systems (KFS University, Very Good with Honors).
                       </p>
                     </div>
@@ -286,7 +291,7 @@ export default function About() {
                       {['UC Davis', 'University of Toronto', 'Esri', 'Cisco'].map((x) => (
                         <span
                           key={x}
-                          className="px-3 py-1.5 bg-slate-900/25 border border-slate-700/50 text-slate-200/85 text-xs font-mono rounded-lg"
+                          className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-slate-900/25 border border-slate-700/50 text-slate-200/85 text-[11px] sm:text-xs font-mono rounded-lg"
                         >
                           {x}
                         </span>
@@ -299,21 +304,21 @@ export default function About() {
           </div>
 
           {/* Highlights Grid */}
-          <div ref={highlightsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div ref={highlightsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             {highlights.map((item) => {
               const Icon = item.icon;
               return (
                 <div
                   key={item.title}
-                  className="highlight-card bg-slate-800/20 border border-slate-700/30 p-6 rounded-lg hover:border-teal/30 transition-colors duration-300"
+                  className="highlight-card bg-slate-800/20 border border-slate-700/30 p-4 sm:p-6 rounded-lg hover:border-teal/30 transition-colors duration-300"
                 >
-                  <div className="w-12 h-12 bg-teal/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="w-6 h-6 text-teal" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-teal/10 rounded-lg flex items-center justify-center mb-3 sm:mb-4">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-teal" />
                   </div>
-                  <h3 className="font-display font-semibold text-lg text-slate-50 mb-2">
+                  <h3 className="font-display font-semibold text-base sm:text-lg text-slate-50 mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                     {item.description}
                   </p>
                 </div>
