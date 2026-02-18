@@ -128,10 +128,6 @@ export default function Hero() {
                   Saad Elsayed Barghouth
                 </h1>
 
-                <p className="hero-item text-base sm:text-xl md:text-2xl text-slate-300 mt-3 sm:mt-4 max-w-2xl text-balance">
-                  <span className="text-gradient font-semibold">Senior GIS Analyst</span>
-                </p>
-
                 <div className="hero-item flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 sm:gap-6 mt-5 sm:mt-6 text-slate-400">
                   <span className="flex items-center gap-2 text-sm sm:text-base">
                     <MapPin className="w-4 h-4 text-teal" />
